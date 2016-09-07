@@ -29,7 +29,13 @@ def edit
 end
 
 def update
-  
+  @recipe = Recipe.find(params[:id])
+  if @recipe.update(recipe_params)
+    flash[:success] = "Your recipe was updated succesfully!"
+    redirect_to recipe_path(@recipe)
+  else
+    render :edit
+  end
 end
 
 private
