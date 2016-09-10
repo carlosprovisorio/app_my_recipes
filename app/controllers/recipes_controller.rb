@@ -40,9 +40,15 @@ end
 
 def like
   @recipe = Recipe.find(params[:id])
-  Like.create(like: params[:like], chef: Chef.first, recipe: @recipe)
-  flash[:success] = "Your selection was succesful"
-  redirect_to :back
+  like = Like.create(like: params[:like], chef: Chef.first, recipe: @recipe)
+  if like.valid?
+    flash[:success] = "Your selection was succesful"
+    redirect_to :back
+  else
+    flash[:danger] = "You can only like/dislike a recipe once"
+    redirect_to :back
+  end
+    
 end
 
 private
